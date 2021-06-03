@@ -62,6 +62,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Consulta los datos en el viewModel para que puedan ser observados.
-        viewModel.getEarthquakes();
+        viewModel.downloadEarthquakes();
     }
 }

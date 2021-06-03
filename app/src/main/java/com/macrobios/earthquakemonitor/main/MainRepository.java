@@ -1,5 +1,7 @@
 package com.macrobios.earthquakemonitor.main;
 
+import androidx.lifecycle.LiveData;
+
 import com.macrobios.earthquakemonitor.Earthquake;
 import com.macrobios.earthquakemonitor.api.EarthquakeClient;
 import com.macrobios.earthquakemonitor.api.EarthquakeJSONResponse;
@@ -15,25 +17,31 @@ import retrofit2.Response;
 
 public class MainRepository {
 
-    public interface DownloadEarthquakesInternet{
-        void onEqsDownloaded(List<Earthquake> earthquakeList);
-    }
-
     private EarthquakeDataBase dataBase;
 
     public MainRepository(EarthquakeDataBase dataBase) {
         this.dataBase = dataBase;
     }
 
-    //Genera los datos de terremotos
-    public void getEartquakes(DownloadEarthquakesInternet downloadEarthquakesInternet){
+    public LiveData<List<Earthquake>> getEqList(){
+        return dataBase.eqDAO().getEarthquakes();
+    }
+
+    //Genera los datos de terremotos xxx
+    //Descarga los datos del servidor y los guarda en la base de datos local
+    public void downloadAndSaveEarthquakes(){
         EarthquakeClient.EartquakeService eqService = EarthquakeClient.getInstance().getService();
         eqService.getEartquakes().enqueue(new Callback<EarthquakeJSONResponse>() {
             @Override
             public void onResponse(Call<EarthquakeJSONResponse> call, Response<EarthquakeJSONResponse> response) {
                 List<Earthquake> earthquakeList = getEartquakesWithMoshi(response.body());
 
-                downloadEarthquakesInternet.onEqsDownloaded(earthquakeList);
+                //Guardar datos en la base de datos local-------
+                EarthquakeDataBase.databaseWriteExecutor.execute(() -> {
+                    dataBase.eqDAO().insertAll(earthquakeList);
+                });
+                //----------------------------------------------
+
             }
 
 

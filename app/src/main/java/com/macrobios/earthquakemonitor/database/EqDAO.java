@@ -1,5 +1,6 @@
 package com.macrobios.earthquakemonitor.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -22,7 +23,7 @@ public interface EqDAO {
 
     //CONSULTA DE DATOS
     @Query("SELECT * FROM earthquakes")
-    List<Earthquake> getEarthquakes();
+    LiveData<List<Earthquake>> getEarthquakes();
 
     @Query("SELECT * FROM earthquakes WHERE magnitud > :myMagnitude")
     List<Earthquake> getEarthquakesWithMagnitudeAbove(double myMagnitude);
