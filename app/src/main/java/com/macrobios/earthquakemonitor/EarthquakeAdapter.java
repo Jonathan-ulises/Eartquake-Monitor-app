@@ -109,6 +109,8 @@ public class EarthquakeAdapter extends ListAdapter<Earthquake, EarthquakeAdapter
                 onItemClickListener.onItemClick(earthquake);
             });
 
+            //En simple pálabras, no espera el proceso del binding(16ms para pintar), y pinta
+            //los view inmediatamente en cada implementacion del binding.
             binding.executePendingBindings();
         }
 

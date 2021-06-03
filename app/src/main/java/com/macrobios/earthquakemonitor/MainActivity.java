@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.macrobios.earthquakemonitor.databinding.ActivityMainBinding;
@@ -50,5 +51,14 @@ public class MainActivity extends AppCompatActivity {
         //como parametro la lista de datos que queremos que el adapter utilice para poder mostrar
         //informacion en la lista.
         adapter.submitList(eqList);
+
+        //Si la lista esta vacia, cambia la visibilidad del texto, esto para mostrar un mensaje
+        //cuando la lista este vacia, si no lo esta, que esconda el mensaje y que muestre los
+        //datos de la lista
+        if(eqList.isEmpty()){
+            binding.txtEmptyList.setVisibility(View.VISIBLE);
+        } else {
+            binding.txtEmptyList.setVisibility(View.GONE);
+        }
     }
 }
