@@ -12,7 +12,7 @@ public class EarthquakeClient {
     private static final EarthquakeClient ourInstance = new EarthquakeClient();
 
     //Servicio
-    private static EartquakeService service;
+    private EartquakeService service;
 
     //Singleton
     public static EarthquakeClient getInstance(){
