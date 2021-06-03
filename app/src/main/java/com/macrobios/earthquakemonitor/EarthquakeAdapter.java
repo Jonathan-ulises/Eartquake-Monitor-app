@@ -1,5 +1,6 @@
 package com.macrobios.earthquakemonitor;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -13,6 +14,9 @@ import com.macrobios.earthquakemonitor.databinding.EarthListItemBinding;
 //Clase publica que exteiende de ListAdapter, en este se especifica el tipo de lista con las que
 //trabajaremos y el viewHolder del adapter
 public class EarthquakeAdapter extends ListAdapter<Earthquake, EarthquakeAdapter.EarthquakeAdapterViewHolder> {
+
+    //Para dar formato a los decimales
+    private Context ctx;
 
     //Ayuda a comparar items y no tener items repetidos; ademas de que ayuda a reordenar la lista
     //de distintas maneras.
@@ -34,8 +38,9 @@ public class EarthquakeAdapter extends ListAdapter<Earthquake, EarthquakeAdapter
             };
 
 
-    protected EarthquakeAdapter() {
+    protected EarthquakeAdapter(Context ctx) {
         super(DIFF_CALLBACK);
+        this.ctx = ctx;
     }
 
     //EVENTO CLICK EN UN ITEM
@@ -100,6 +105,7 @@ public class EarthquakeAdapter extends ListAdapter<Earthquake, EarthquakeAdapter
         //Asigna los valores a la View del holder
         public void bind(Earthquake earthquake){
             binding.txtMagnitude.setText(String.valueOf(earthquake.getMagnitud()));
+            binding.txtMagnitude.setText(ctx.getString(R.string.magnitude_format, earthquake.getMagnitud()));
             binding.txtPlace.setText(earthquake.getPlace());
 
             //EventoClick

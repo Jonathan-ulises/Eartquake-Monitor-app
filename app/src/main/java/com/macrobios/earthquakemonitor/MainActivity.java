@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Se crea una instancia de del adapter para la RecycleView, ademas de asignarla a la misma
-        EarthquakeAdapter adapter = new EarthquakeAdapter();
+        EarthquakeAdapter adapter = new EarthquakeAdapter(this);
 
         //EventoClick
         /*adapter.setOnItemClickListener(new EarthquakeAdapter.OnItemClickListener() {
@@ -63,6 +63,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Consulta los datos en el viewModel para que puedan ser observados.
-        viewModel.getEartquakes();
+        viewModel.getEarthquakes();
     }
 }
