@@ -3,6 +3,7 @@ package com.macrobios.earthquakemonitor.api;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.http.GET;
 
@@ -24,14 +25,14 @@ public class EarthquakeClient {
     //Metodos HTTPS para consumir servicios
     public interface EartquakeService {
         @GET("all_hour.geojson")
-        Call<String> getEartquakes();
+        Call<EarthquakeJSONResponse> getEartquakes();
     }
 
     //Construccion de la instancia de retrofit, especificando la url base, el cenversor de los datos
     //optenidos y se manda a contruir con .build
     private final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/")
-            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
             .build();
 
     //Crear y obtiene el servicio, si es nulo, lo crear y lo retorna; si no, simplemente lo retorna

@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.macrobios.earthquakemonitor.api.EarthquakeClient;
+import com.macrobios.earthquakemonitor.api.EarthquakeJSONResponse;
+import com.macrobios.earthquakemonitor.api.Feature;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,16 +32,21 @@ public class MainViewModel extends ViewModel {
     //Genera los datos de terremotos
     public void getEartquakes(){
         EarthquakeClient.EartquakeService eqService = EarthquakeClient.getInstance().getService();
-        eqService.getEartquakes().enqueue(new Callback<String>() {
+        eqService.getEartquakes().enqueue(new Callback<EarthquakeJSONResponse>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<EarthquakeJSONResponse> call, Response<EarthquakeJSONResponse> response) {
 
-                List<Earthquake> earthquakeList = parseEarhquakes(response.body());
+                //List<Earthquake> earthquakeList = parseEarhquakes(response.body());
+                //eqList.setValue(earthquakeList);
+
+                List<Earthquake> earthquakeList = getEartquakesWithMoshi(response.body());
                 eqList.setValue(earthquakeList);
             }
 
+
+
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<EarthquakeJSONResponse> call, Throwable t) {
 
             }
         });
@@ -81,6 +88,32 @@ public class MainViewModel extends ViewModel {
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        return eqL;
+    }
+
+    //Manipulacion de la respuesta con la libreria Moshi
+
+    /**
+     * Convierte la respuesta en una lista de Earthquakes
+     * @param body
+     * @return
+     */
+    private List<Earthquake> getEartquakesWithMoshi(EarthquakeJSONResponse body) {
+        ArrayList<Earthquake> eqL = new ArrayList<>();
+
+        List<Feature> features = body.getFeatures();
+        for (Feature feature: features) {
+            String id = feature.getId();
+            double magnitud = feature.getProperties().getMag();
+            String place = feature.getProperties().getPlace();
+            long time = feature.getProperties().getTime();
+            double lon = feature.getGeometry().getLongitude();
+            double lat = feature.getGeometry().getLatitude();
+
+            Earthquake eq = new Earthquake(id, place, magnitud, time, lat, lon);
+            eqL.add(eq);
         }
 
         return eqL;
