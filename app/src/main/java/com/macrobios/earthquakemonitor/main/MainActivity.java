@@ -62,15 +62,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getStatusMutableLiveData().observe(this, status -> {
-            if(status == RequestStatus.LOADING){
+        viewModel.getStatusWithDescription().observe(this, statusWithDescription -> {
+            if(statusWithDescription.getStatus() == RequestStatus.LOADING){
                 //Muestra ruedita de cargando :)
+                binding.prgbLoading.setVisibility(View.VISIBLE);
             } else {
+                binding.prgbLoading.setVisibility(View.GONE);
                 //Ocultar ruedita de cargando
             }
 
-            if(status == RequestStatus.ERROR){
+            if(statusWithDescription.getStatus() == RequestStatus.ERROR){
                 //Muestra de toas con error.
+                Toast.makeText(this, statusWithDescription.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
