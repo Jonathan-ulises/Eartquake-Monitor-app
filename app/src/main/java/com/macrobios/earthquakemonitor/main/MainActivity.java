@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        MainViewModel viewModel = new ViewModelProvider(this,
+                new MainViewModelFactory(getApplication())).get(MainViewModel.class);
 
 
         //LayoutManayer = Como se mostraran los datos

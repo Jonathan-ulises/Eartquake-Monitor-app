@@ -4,6 +4,7 @@ import com.macrobios.earthquakemonitor.Earthquake;
 import com.macrobios.earthquakemonitor.api.EarthquakeClient;
 import com.macrobios.earthquakemonitor.api.EarthquakeJSONResponse;
 import com.macrobios.earthquakemonitor.api.Feature;
+import com.macrobios.earthquakemonitor.database.EarthquakeDataBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,12 @@ public class MainRepository {
 
     public interface DownloadEarthquakesInternet{
         void onEqsDownloaded(List<Earthquake> earthquakeList);
+    }
+
+    private EarthquakeDataBase dataBase;
+
+    public MainRepository(EarthquakeDataBase dataBase) {
+        this.dataBase = dataBase;
     }
 
     //Genera los datos de terremotos
