@@ -19,6 +19,11 @@ public class MainRepository {
 
     private EarthquakeDataBase dataBase;
 
+    public interface DownloadStatusListener {
+        void downloadSucces();
+        void downloadError(String message);
+    }
+
     public MainRepository(EarthquakeDataBase dataBase) {
         this.dataBase = dataBase;
     }
@@ -29,7 +34,7 @@ public class MainRepository {
 
     //Genera los datos de terremotos xxx
     //Descarga los datos del servidor y los guarda en la base de datos local
-    public void downloadAndSaveEarthquakes(){
+    public void downloadAndSaveEarthquakes(DownloadStatusListener downloadStatusListener){
         EarthquakeClient.EartquakeService eqService = EarthquakeClient.getInstance().getService();
         eqService.getEartquakes().enqueue(new Callback<EarthquakeJSONResponse>() {
             @Override
@@ -42,13 +47,12 @@ public class MainRepository {
                 });
                 //----------------------------------------------
 
+                downloadStatusListener.downloadSucces();
             }
-
-
 
             @Override
             public void onFailure(Call<EarthquakeJSONResponse> call, Throwable t) {
-
+                downloadStatusListener.downloadError("There was an error in downloading earthquakes, check internet connection.");
             }
         });
     }

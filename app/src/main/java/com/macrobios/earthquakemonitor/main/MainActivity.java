@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.macrobios.earthquakemonitor.api.RequestStatus;
 import com.macrobios.earthquakemonitor.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,6 +59,18 @@ public class MainActivity extends AppCompatActivity {
                 binding.txtEmptyList.setVisibility(View.VISIBLE);
             } else {
                 binding.txtEmptyList.setVisibility(View.GONE);
+            }
+        });
+
+        viewModel.getStatusMutableLiveData().observe(this, status -> {
+            if(status == RequestStatus.LOADING){
+                //Muestra ruedita de cargando :)
+            } else {
+                //Ocultar ruedita de cargando
+            }
+
+            if(status == RequestStatus.ERROR){
+                //Muestra de toas con error.
             }
         });
 
