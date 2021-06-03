@@ -40,6 +40,18 @@ public class EarthquakeAdapter extends ListAdapter<Earthquake, EarthquakeAdapter
         super(DIFF_CALLBACK);
     }
 
+    //EVENTO CLICK EN UN ITEM
+    private OnItemClickListener onItemClickListener;
+    public interface OnItemClickListener {
+        void onItemClick(Earthquake earthquake);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+    //---------------------------------------
+
+
     //Se utiliza asi cuando implementemos dataBinding
     @NonNull
     @Override
@@ -91,6 +103,11 @@ public class EarthquakeAdapter extends ListAdapter<Earthquake, EarthquakeAdapter
         public void bind(Earthquake earthquake){
             binding.txtMagnitude.setText(String.valueOf(earthquake.getMagnitud()));
             binding.txtPlace.setText(earthquake.getPlace());
+
+            //EventoClick
+            binding.getRoot().setOnClickListener(v -> {
+                onItemClickListener.onItemClick(earthquake);
+            });
 
             binding.executePendingBindings();
         }

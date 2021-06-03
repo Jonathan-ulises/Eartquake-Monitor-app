@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.macrobios.earthquakemonitor.databinding.ActivityMainBinding;
 
@@ -30,6 +31,19 @@ public class MainActivity extends AppCompatActivity {
 
         //Se crea una instancia de del adapter para la RecycleView, ademas de asignarla a la misma
         EarthquakeAdapter adapter = new EarthquakeAdapter();
+
+        //EventoClick
+        /*adapter.setOnItemClickListener(new EarthquakeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Earthquake earthquake) {
+
+            }
+        });*/
+        //Funcion lambda
+        adapter.setOnItemClickListener(earthquake -> {
+            Toast.makeText(this, earthquake.getPlace(), Toast.LENGTH_SHORT).show();
+        });
+
         binding.rclEarth.setAdapter(adapter);
 
         //Para la lista con la cual el adapter trabajara, se utiliza el metodo .submitList, pasando
