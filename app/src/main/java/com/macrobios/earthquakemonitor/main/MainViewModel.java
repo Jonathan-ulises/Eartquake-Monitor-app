@@ -1,25 +1,12 @@
-package com.macrobios.earthquakemonitor;
-
-import android.util.Log;
+package com.macrobios.earthquakemonitor.main;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.macrobios.earthquakemonitor.api.EarthquakeClient;
-import com.macrobios.earthquakemonitor.api.EarthquakeJSONResponse;
-import com.macrobios.earthquakemonitor.api.Feature;
+import com.macrobios.earthquakemonitor.Earthquake;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainViewModel extends ViewModel {
 
@@ -35,6 +22,13 @@ public class MainViewModel extends ViewModel {
         repository.getEartquakes(earthquakeList -> {
             eqList.setValue(earthquakeList);
         });
+
+        /*repository.getEartquakes(new MainRepository.DownloadEarthquakesInternet() {
+            @Override
+            public void onEqsDownloaded(List<Earthquake> earthquakeList) {
+
+            }
+        });*/
     }
 
 

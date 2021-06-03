@@ -1,12 +1,9 @@
-package com.macrobios.earthquakemonitor;
+package com.macrobios.earthquakemonitor.main;
 
+import com.macrobios.earthquakemonitor.Earthquake;
 import com.macrobios.earthquakemonitor.api.EarthquakeClient;
 import com.macrobios.earthquakemonitor.api.EarthquakeJSONResponse;
 import com.macrobios.earthquakemonitor.api.Feature;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

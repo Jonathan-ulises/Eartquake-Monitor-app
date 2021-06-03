@@ -1,4 +1,4 @@
-package com.macrobios.earthquakemonitor;
+package com.macrobios.earthquakemonitor.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.macrobios.earthquakemonitor.Earthquake;
+import com.macrobios.earthquakemonitor.R;
 import com.macrobios.earthquakemonitor.databinding.EarthListItemBinding;
 
 //Clase publica que exteiende de ListAdapter, en este se especifica el tipo de lista con las que

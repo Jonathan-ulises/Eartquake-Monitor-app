@@ -1,4 +1,4 @@
-package com.macrobios.earthquakemonitor;
+package com.macrobios.earthquakemonitor.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.macrobios.earthquakemonitor.databinding.ActivityMainBinding;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 

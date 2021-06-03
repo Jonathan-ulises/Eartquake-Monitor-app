@@ -1,11 +1,21 @@
 package com.macrobios.earthquakemonitor;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Objects;
 
+@Entity(tableName = "earthquakes")
 public class Earthquake {
 
+    @PrimaryKey
+    //@PrimaryKey(autoGenerate = true)
+    @NonNull
     private String id;
     private String place;
+    //@ColumnInfo(name = "magnitud")
     private double magnitud;
     private long time;
     private double latiitude;
